@@ -4,7 +4,7 @@ public class LinkedList<AnyType extends IDedObject>
     class Node /*
              Is it safe to ASSUME that Nodes must have an element stored? <-- ASK!!!
              A: https://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-value
-             Does this have to be nested?
+             Does this have to be nested? No but it can be.
             */ {
         private Node nextNode;
         private AnyType storedObj;
@@ -93,8 +93,7 @@ public class LinkedList<AnyType extends IDedObject>
         else
         {
             Node temp = header;
-            header = new Node(x);
-            header.assignNext(temp);
+            header = new Node(x, temp);
         }
         /*
         // IGNORING INSERT TO FRONT FOR NOW, JUST TESTING IF IT WORK
@@ -135,7 +134,7 @@ public class LinkedList<AnyType extends IDedObject>
 
         */
 
-        // First check if List is not NULL
+        // First check if List is not NULL (Empty)
         if (header != null)
         {
             // Comb through Linked List. Start: Header, End: Tail

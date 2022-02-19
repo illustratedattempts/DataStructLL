@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Tester
 {
-    public static void menu()  // Prints out the menu.
+    private static void menu()  // Prints out the menu.
     {
         System.out.print(
         "Operations on List\n" +
@@ -15,20 +15,18 @@ public class Tester
                 "7. Done\n"
         );
     }
-    public static Product buildProduct()
+    private static Product buildProduct() // Takes user input and return the product
     {
-        Product temp;
         Scanner inner_input = new Scanner(System.in);
         System.out.print("Enter Product Name: ");
         String prodName = inner_input.nextLine();
         System.out.print("Product Name: " + prodName + "\nEnter Supplier's Name: ");
         String suppName = inner_input.nextLine();
         System.out.print("Supplier Name: " + suppName + "\nEnter Product ID: ");
-        int prodID = inner_input.nextInt();
+        int prodID = Integer.parseInt(inner_input.nextLine());
         System.out.print("Product ID: " + prodID);
-        System.out.print("\nApplication Complete\n");
-        temp = new Product(prodID, prodName, suppName);
-        return temp;
+        System.out.print("\nApplication Complete for " + prodName + ": " + prodID + ", supplied by " + suppName + "\n");
+        return new Product(prodID, prodName, suppName);
     }
     public static void main(String[] args)
     {
@@ -37,27 +35,55 @@ public class Tester
         boolean user_Done = false;
         Scanner input = new Scanner(System.in);
         // User Input Menu
+
         while(!user_Done)
         {
-            menu();
+            menu(); // Displays menu options
             int menu_Input = input.nextInt();
+            /*
+                EDGE CASES (To work on)
+                ----------
+                * 1: Print out that the list is now empty. [x]
+                * 2: Make sure that the input is an INT. []
+                * 3: (Allowed) User can enter any string for names. However, ID must be an INT. []
+                     Needs to be able to handle TRUE/FAlSE output from insertAtFront()  []
+                * 4: Print out something after deleteFromFront() in cases where returns NULL, also print out delete item []
+                * 5: Same as above (* 4). []
+                * 6: Nothing really, just prints it out
+                * 7: Print out that item is exiting [x]
+
+                Recommended to use Integer.parseInt(scanner.nextLine()) over scanner.nextInt()
+                ** REPLACE ALL []
+                REASON: .nextInt() leaves a line break in the keyboard buffer
+
+                // 1-7 for input
+                // Exception handler
+                // Function to validate
+                // Try-Catch && Validate
+                // Integer inputs must be greater than 0
+            */
             switch(menu_Input)
             {
                 case 1:
                     userCreated.makeEmpty();
+
+                    System.out.println("Linked List has been CLEARED.");
+
                     break;
                 case 2:
-                    int ID_Find = input.nextInt();
+                    int ID_Find = Integer.parseInt(input.nextLine());
+
                     userCreated.findID(ID_Find);
                     break;
                 case 3:
-                    userCreated.insertAtFront(buildProduct());
+                    userCreated.insertAtFront(buildProduct()); // New Product Case
                     break;
                 case 4:
                     userCreated.deleteFromFront();
                     break;
                 case 5:
-                    int ID_Delete = input.nextInt();
+                    System.out.print("Here!");
+                    int ID_Delete = Integer.parseInt(input.nextLine());
                     userCreated.delete(ID_Delete);
                     break;
                 case 6:
