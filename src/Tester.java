@@ -15,6 +15,7 @@ public class Tester
                 "7. Done\n"
         );
     }
+    // Thoughts on if nextLine() then nextInt() - Wouldn't
     private static Product buildProduct() // Takes user input and return the product
     {
         Scanner inner_input = new Scanner(System.in);
@@ -23,7 +24,9 @@ public class Tester
         System.out.print("Product Name: " + prodName + "\nEnter Supplier's Name: ");
         String suppName = inner_input.nextLine();
         System.out.print("Supplier Name: " + suppName + "\nEnter Product ID: ");
-        int prodID = Integer.parseInt(inner_input.nextLine());
+        // Catches Format Type Errors: NumberFormatException
+        // Thoughts on filtering out strings that include purely integers? Honestly a lot of work.
+        int prodID = inner_input.nextInt();
         System.out.print("Product ID: " + prodID);
         System.out.print("\nApplication Complete for " + prodName + ": " + prodID + ", supplied by " + suppName + "\n");
         return new Product(prodID, prodName, suppName);
@@ -71,8 +74,7 @@ public class Tester
 
                     break;
                 case 2:
-                    int ID_Find = Integer.parseInt(input.nextLine());
-
+                    int ID_Find = input.nextInt();
                     userCreated.findID(ID_Find);
                     break;
                 case 3:
@@ -91,6 +93,8 @@ public class Tester
                     break;
                 case 7:
                     user_Done = true;
+                default:
+                    System.out.print("Please enter an input between 1 - 7.");
             }
         }
         input.close();
