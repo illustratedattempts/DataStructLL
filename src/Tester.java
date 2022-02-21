@@ -1,5 +1,5 @@
 import java.util.Scanner;
-
+// Clean your comments later dummy, these comments are kind dumb
 public class Tester
 {
     private static void menu()  // Prints out the menu.
@@ -58,6 +58,7 @@ public class Tester
                 Recommended to use Integer.parseInt(scanner.nextLine()) over scanner.nextInt()
                 ** REPLACE ALL []
                 REASON: .nextInt() leaves a line break in the keyboard buffer
+                Test if STRING or ID are the same
 
                 // 1-7 for input
                 // Exception handler
@@ -74,8 +75,14 @@ public class Tester
 
                     break;
                 case 2:
-                    int ID_Find = input.nextInt();
-                    userCreated.findID(ID_Find);
+                    try {
+                        int ID_Find = input.nextInt();
+                        userCreated.findID(ID_Find);
+                    }
+                    catch(NullPointerException e)
+                    {
+                        System.out.println("Input needs to be an Integer");
+                    }
                     break;
                 case 3:
                     userCreated.insertAtFront(buildProduct()); // New Product Case

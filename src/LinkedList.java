@@ -35,18 +35,17 @@ public class LinkedList<AnyType extends IDedObject>
 
 
     private Node header;
-    private Node tail;
+    //private Node tail;
     public LinkedList() // Empty List
     {
         header = null;
-        tail = null;
+        //tail = null;
     }
     public void makeEmpty() // Empties out the Linked List
     {
         // Isn't this where we just toss out the references? Yes
 
         header = null;
-        tail = null;
     }
 
     AnyType findID(int ID) // Finds the AnyType's ID and then returns it. Returns NULL if empty or ID if not found
@@ -54,7 +53,7 @@ public class LinkedList<AnyType extends IDedObject>
         //First check if List is not NULL
         if (header != null)
         {
-            // Comb through Linked List. Start: Header, End: Tail
+            // Comb through Linked List. Start: Header, End: Next Element is NULL
             Node parsed = header;
             int parsedID = parsed.getStored().getID(); //Error Right here? [Fixed] Calling NULL reference
 
@@ -88,7 +87,7 @@ public class LinkedList<AnyType extends IDedObject>
         else if(header == null) // If LinkedList EMPTY
         {
             header = new Node(x); // Adds in a new Node to header
-            tail = header; // Characteristically, the tail will be the first head
+            //tail = header; // Characteristically, the tail will be the first head
         }
         else
         {
@@ -154,7 +153,7 @@ public class LinkedList<AnyType extends IDedObject>
                 }
                 else if(parsed.getStored().getID() == ID ) // Case at END of the Linked List & ID found
                 {
-                    tail = previous; // Places end of Linked List as the node BEFORE it
+                    //tail = previous; // Places end of Linked List as the node BEFORE it
                     return parsed.getStored();
                 }
             }
