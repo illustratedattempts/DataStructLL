@@ -88,7 +88,7 @@ public class LinkedList<AnyType extends IDedObject>
         else if(header == null) // If LinkedList EMPTY
         {
             header = new Node(x); // Adds in a new Node to header
-            tail = header;
+            tail = header; // Characteristically, the tail will be the first head
         }
         else
         {
