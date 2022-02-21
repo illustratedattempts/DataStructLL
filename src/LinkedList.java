@@ -44,6 +44,7 @@ public class LinkedList<AnyType extends IDedObject>
     public void makeEmpty() // Empties out the Linked List
     {
         // Isn't this where we just toss out the references? Yes
+        // Random Comment
 
         header = null;
     }
