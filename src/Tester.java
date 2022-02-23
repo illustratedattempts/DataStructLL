@@ -15,6 +15,33 @@ public class Tester
                 "7. Done\n"
         );
     }
+
+    private static int validInt(Scanner input)
+    {
+        boolean input_valid = false;
+        int valid_Int = -1;
+
+        // Thoughts on using Regular Expressions to validate?
+        while(!input_valid)
+        {
+            try
+            {
+                valid_Int = input.nextInt();
+
+                if (valid_Int > 0) {
+                    input_valid = true;
+                } else {
+                    System.out.println("ID must be GREATER than 0. Try Again.");
+                }
+            }
+            catch(NumberFormatException e)
+            {
+                System.out.println("Integer Values ONLY! Try Again.");
+            }
+
+        }
+        return valid_Int;
+    }
     // Thoughts on if nextLine() then nextInt() - Wouldn't
     private static Product buildProduct() // Takes user input and return the product
     {
@@ -47,8 +74,8 @@ public class Tester
                 EDGE CASES (To work on)
                 ----------
                 * 1: Print out that the list is now empty. [x]
-                * 2: Make sure that the input is an INT. []
-                * 3: (Allowed) User can enter any string for names. However, ID must be an INT. []
+                * 2: Make sure that the input is an INT. [x]
+                * 3: (Allowed) User can enter any string for names. However, ID must be an INT. [x]
                      Needs to be able to handle TRUE/FAlSE output from insertAtFront()  []
                 * 4: Print out something after deleteFromFront() in cases where returns NULL, also print out delete item []
                 * 5: Same as above (* 4). []
@@ -70,35 +97,36 @@ public class Tester
             {
                 case 1:
                     userCreated.makeEmpty();
-
                     System.out.println("Linked List has been CLEARED.");
-
                     break;
-                case 2:
-                    try {
-                        int ID_Find = input.nextInt();
+                case 2: // Find ID
+                        int ID_Find = validInt(input);
                         userCreated.findID(ID_Find);
-                    }
-                    catch(NullPointerException e)
-                    {
-                        System.out.println("Input needs to be an Integer");
-                    }
                     break;
-                case 3:
+                case 3: // Insert at Front
                     userCreated.insertAtFront(buildProduct()); // New Product Case
                     break;
-                case 4:
-                    userCreated.deleteFromFront();
+                case 4: // Delete From Front
+                    Product holder = userCreated.deleteFromFront();
+                    if(holder == null) // Delete From Front can call NULL
+                    {
+                        System.out.println("Linked List is Empty!");
+                    }
+                    else
+                    {
+                        System.out.println("Deleted:\n");
+                        holder.printID();
+                    }
+
                     break;
-                case 5:
-                    System.out.print("Here!");
-                    int ID_Delete = Integer.parseInt(input.nextLine());
+                case 5: // Delete ID
+                    int ID_Delete = validInt(input);
                     userCreated.delete(ID_Delete);
                     break;
-                case 6:
+                case 6: // Print All Records
                     userCreated.printAllRecords();
                     break;
-                case 7:
+                case 7: // Exit on Completion
                     user_Done = true;
                 default:
                     System.out.print("Please enter an input between 1 - 7.");
