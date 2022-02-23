@@ -1,11 +1,8 @@
 public class LinkedList<AnyType extends IDedObject>
 {
 
-    class Node /*
-             Is it safe to ASSUME that Nodes must have an element stored? <-- ASK!!!
-             A: https://stackoverflow.com/questions/40480/is-java-pass-by-reference-or-pass-by-value
-             Does this have to be nested? No but it can be.
-            */ {
+    class Node
+    {
         private Node nextNode;
         private AnyType storedObj;
         public Node(AnyType obj)
@@ -35,7 +32,7 @@ public class LinkedList<AnyType extends IDedObject>
 
 
     private Node header;
-    //private Node tail;
+
     public LinkedList() // Empty List
     {
         header = null;
@@ -43,10 +40,6 @@ public class LinkedList<AnyType extends IDedObject>
     }
     public void makeEmpty() // Empties out the Linked List
     {
-        // Isn't this where we just toss out the references? Yes
-        // Random Comment
-        // Custom shell and ssh key for github
-
         header = null;
     }
 
@@ -57,11 +50,11 @@ public class LinkedList<AnyType extends IDedObject>
         {
             // Comb through Linked List. Start: Header, End: Next Element is NULL
             Node parsed = header;
-            int parsedID = parsed.getStored().getID(); //Error Right here? [Fixed] Calling NULL reference
+            int parsedID = parsed.getStored().getID();
 
             while (parsedID != ID) // Make sure that ID does not match
             {
-                if( (parsed.getNext()) != null) // Previously parsed = parsed.getNext(): However, you should check if it is null first before assigning it
+                if( (parsed.getNext()) != null)
                 {
                     parsed = parsed.getNext();
                     parsedID =  parsed.getStored().getID(); // New Parsing ID
@@ -89,22 +82,12 @@ public class LinkedList<AnyType extends IDedObject>
         else if(header == null) // If LinkedList EMPTY
         {
             header = new Node(x); // Adds in a new Node to header
-            //tail = header; // Characteristically, the tail will be the first head
         }
         else
         {
             Node temp = header;
             header = new Node(x, temp);
         }
-        /*
-        // IGNORING INSERT TO FRONT FOR NOW, JUST TESTING IF IT WORK
-        // insertAtBack
-        else
-        {
-            tail.assignNext(new Node(x)); // Next Node as new Node
-            tail = tail.getNext(); // Assigns tail as Next Node which is also new Node
-        }
-        */
         return true;
 
 
@@ -141,10 +124,9 @@ public class LinkedList<AnyType extends IDedObject>
             // Comb through Linked List. Start: Header, End: Tail
             Node parsed = header;
             Node previous = null;
-            int parsedID = parsed.getStored().getID(); //Error Right here? [Fixed] Calling NULL reference
+            int parsedID = parsed.getStored().getID();
             while (parsedID != ID) // Make sure that ID does not match
             {
-                // * IMPORTANT * What about cases where you find the ID at the end?
                 // Check that next node is NOT NULL
                 if( parsed.getNext() != null) // Checks that Linked List not at end
                 {
@@ -155,7 +137,6 @@ public class LinkedList<AnyType extends IDedObject>
                 }
                 else if(parsed.getStored().getID() == ID ) // Case at END of the Linked List & ID found
                 {
-                    //tail = previous; // Places end of Linked List as the node BEFORE it
                     return parsed.getStored();
                 }
             }
