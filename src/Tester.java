@@ -13,11 +13,12 @@ public class Tester
                 "4. Delete From Front\n" +
                 "5. Delete ID\n" +
                 "6. Print All Records\n" +
-                "7. Done\n"
+                "7. Done\n" +
+                "Your Choice: "
         );
     }
 
-    private static int validInt(Scanner input) // Verifies if INT is > 0 & is of Type Int
+    private static int validInt(Scanner input) // Prompts, verifies, and returns an integer greater than 0
     {
         boolean input_valid = false;
         int valid_Int = -1;
@@ -113,7 +114,7 @@ public class Tester
                     }
                     else
                     {
-                        System.out.println("Deleted:");
+                        System.out.println("Deleted From Front:");
                         DeleteFrontHolder.printID(); System.out.println();
                     }
 
