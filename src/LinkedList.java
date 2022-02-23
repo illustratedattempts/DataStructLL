@@ -82,7 +82,7 @@ public class LinkedList<AnyType extends IDedObject>
 
     boolean insertAtFront(AnyType x) // Inserts AnyType at front of List. Returns FALSE if ID already exists
     {
-        if(findID(x.getID()) == x) // Scared these references will somehow mismatch
+        if(findID(x.getID()) != null) // If ID is found in List
         {
             return false;
         }

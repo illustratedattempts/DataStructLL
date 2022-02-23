@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 // Clean your comments later dummy, these comments are kind dumb
 public class Tester
@@ -24,6 +25,7 @@ public class Tester
         // Thoughts on using Regular Expressions to validate?
         while(!input_valid)
         {
+
             try
             {
                 valid_Int = input.nextInt();
@@ -32,11 +34,14 @@ public class Tester
                     input_valid = true;
                 } else {
                     System.out.println("ID must be GREATER than 0. Try Again.");
+                    System.out.print("Enter Product ID: ");
                 }
             }
-            catch(NumberFormatException e)
+            catch(InputMismatchException e)
             {
+                input.next(); // Referenced by StackOverflow: Scanner does not discard InputMismatchException. Need to do it manually.
                 System.out.println("Integer Values ONLY! Try Again.");
+                System.out.print("Enter Product ID: ");
             }
 
         }
@@ -53,10 +58,10 @@ public class Tester
         System.out.print("Supplier Name: " + suppName + "\nEnter Product ID: ");
         // Catches Format Type Errors: NumberFormatException
         // Thoughts on filtering out strings that include purely integers? Honestly a lot of work.
-        int prodID = inner_input.nextInt();
+        int prodID = validInt(inner_input);
         System.out.print("Product ID: " + prodID);
-        System.out.print("\nApplication Complete for " + prodName + ": " + prodID + ", supplied by " + suppName + "\n");
-        return new Product(prodID, prodName, suppName);
+        System.out.print("\nApplication Complete for " + prodName + " of ID " + prodID + ", supplied by " + suppName + "\n");
+        return new Product(prodID, prodName, suppName); // Same ID does not filter
     }
     public static void main(String[] args)
     {
@@ -97,37 +102,66 @@ public class Tester
             {
                 case 1:
                     userCreated.makeEmpty();
-                    System.out.println("Linked List has been CLEARED.");
+                    System.out.println("Linked List has been CLEARED.\n");
                     break;
                 case 2: // Find ID
+                        System.out.print("Enter Product ID To Find: ");
                         int ID_Find = validInt(input);
-                        userCreated.findID(ID_Find);
+                        Product IDHolder = userCreated.findID(ID_Find);
+                        if(IDHolder != null)
+                        {
+                            IDHolder.printID(); System.out.println();
+                        }
+                        else
+                        {
+                            System.out.println("Product does not exist/List is empty."); System.out.println();
+                        }
                     break;
                 case 3: // Insert at Front
-                    userCreated.insertAtFront(buildProduct()); // New Product Case
+                    boolean accepted_insertion = userCreated.insertAtFront(buildProduct()); // New Product Case
+                    if(accepted_insertion)
+                    {
+                        System.out.println("Application Approved. Product was inserted into List.\n");
+                    }
+                    else
+                    {
+                        System.out.println("Application Denied. Product already exists.\n");
+                    }
                     break;
                 case 4: // Delete From Front
-                    Product holder = userCreated.deleteFromFront();
-                    if(holder == null) // Delete From Front can call NULL
+                    Product DeleteFrontHolder = userCreated.deleteFromFront();
+                    if(DeleteFrontHolder == null) // Delete From Front can call NULL
                     {
                         System.out.println("Linked List is Empty!");
                     }
                     else
                     {
-                        System.out.println("Deleted:\n");
-                        holder.printID();
+                        System.out.println("Deleted:");
+                        DeleteFrontHolder.printID(); System.out.println();
                     }
 
                     break;
                 case 5: // Delete ID
+                    System.out.print("Enter Product ID To Be Deleted: ");
                     int ID_Delete = validInt(input);
-                    userCreated.delete(ID_Delete);
+                    Product DeleteID_Holder = userCreated.delete(ID_Delete);
+                    if(DeleteID_Holder == null)
+                    {
+                        System.out.println("ID does not exist/Can not be found."); System.out.println();
+                    }
+                    else
+                    {
+                        System.out.println("Deleted:");
+                        DeleteID_Holder.printID(); System.out.println();
+                    }
                     break;
                 case 6: // Print All Records
                     userCreated.printAllRecords();
                     break;
                 case 7: // Exit on Completion
+                    System.out.println("Exiting Application...");
                     user_Done = true;
+                    break;
                 default:
                     System.out.print("Please enter an input between 1 - 7.");
             }
