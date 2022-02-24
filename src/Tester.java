@@ -141,7 +141,8 @@ public class Tester
                     user_Done = true;
                     break;
                 default:
-                    System.out.print("Please enter an input between 1 - 7.");
+                    System.out.println("Please enter an input between 1 - 7 (inclusive).\n");
+                    break;
             }
         }
         input.close();
